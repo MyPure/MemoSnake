@@ -128,5 +128,25 @@ public class Snake : MonoBehaviour
         p1 = p2 = null;
         length -= n;
     }
+
+    /// <summary>
+    /// 加速
+    /// </summary>
+    /// <param name="time">持续时间</param>
+    public void SpeedUp(float time)
+    {
+        StartCoroutine(StartSpeedUp(Time.time, time));
+    }
+
+    IEnumerator StartSpeedUp(float basetime,float existtime)
+    {
+        float basespeed = speed;
+        speed *= 2f;
+        while(Time.time - basetime < existtime)
+        {
+            yield return null;
+        }
+        speed = basespeed;
+    }
 }
 
