@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PoisonousGrass : MonoBehaviour
+public class Boom : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "SnakeHead")
         {
-            collision.gameObject.GetComponent<Body>().snake.Decrease(2);
+            Body b = collision.gameObject.GetComponent<Body>();
+            b.snake.Decrease(b.snake.length / 2);
             Destroy(gameObject);
         }
     }
