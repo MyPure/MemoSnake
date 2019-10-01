@@ -6,10 +6,9 @@ public class Boom : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "SnakeHead")
+        if (collision.tag == "SnakeHead")
         {
-            Body b = collision.gameObject.GetComponent<Body>();
-            b.snake.Decrease(b.snake.length / 2);
+            collision.gameObject.GetComponent<Body>().snake.Eat(FoodType.Boom);
             Destroy(gameObject);
         }
     }

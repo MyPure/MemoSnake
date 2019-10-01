@@ -2,13 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum FoodType
+{
+    Food,
+    Mushroom,
+    Boom,
+    Energy,
+    PoisonousGrass,
+    Sheild
+}
+
 public class Snake : MonoBehaviour
 {
-    public static float minDistance = 0.4f;
+    public static float minDistance = 0.3f;
     public static float speed = 5;
     public int length = 0;
     public GameObject BodyPrefab;
     public GameObject HeadPrefab;
+    bool isSpeedUp = false;//是否在加速
+    float speedUpBaseTime;//加速开始时间
+    bool isSheild;//是否处于护盾
+    public GameObject sheildCirclePrefab;//护盾光环
+    public float sheildBaseTime;//护盾开始时间
     Body p1, p2, head, tail;
 
     void Start()
@@ -87,10 +102,45 @@ public class Snake : MonoBehaviour
     }
 
     /// <summary>
+    /// 吃不同道具的反应
+    /// </summary>
+    /// <param name="foodType">吃的道具的类型</param>
+    public void Eat(FoodType foodType)
+    {
+        switch (foodType)
+        {
+            case FoodType.Food:Increase(1);break;
+            case FoodType.Mushroom:Increase(length);break;
+            case FoodType.PoisonousGrass:
+                {
+                    if (isSheild)
+                    {
+                        isSheild = false;
+                        break;
+                    }
+                    Decrease(2);
+                    break;
+                }
+            case FoodType.Boom:
+                {
+                    if (isSheild)
+                    {
+                        isSheild = false;
+                        break;
+                    }
+                    Decrease(length / 2);
+                    break;
+                }
+            case FoodType.Energy:SpeedUp(5);break;
+            case FoodType.Sheild:Sheild(5);break;
+        }
+    }
+
+    /// <summary>
     /// 伸长n节
     /// </summary>
     /// <param name="n">减少的节数</param>
-    public void Increase(int n)
+    void Increase(int n)
     {
         p2 = tail;
 
@@ -119,7 +169,7 @@ public class Snake : MonoBehaviour
     /// 减少n节
     /// </summary>
     /// <param name="n">减少的节数</param>
-    public void Decrease(int n)
+    void Decrease(int n)
     {
         if(length - n <= 0)
         {
@@ -141,20 +191,51 @@ public class Snake : MonoBehaviour
     /// 加速
     /// </summary>
     /// <param name="time">持续时间</param>
-    public void SpeedUp(float time)
+    void SpeedUp(float time)
     {
-        StartCoroutine(StartSpeedUp(Time.time, time));
+        speedUpBaseTime = Time.time;
+        if (!isSpeedUp)
+        {
+            StartCoroutine(StartSpeedUp(time));
+        }
     }
 
-    IEnumerator StartSpeedUp(float basetime,float existtime)
+    IEnumerator StartSpeedUp(float lastTime)
     {
+        isSpeedUp = true;
         float basespeed = speed;
         speed *= 2f;
-        while(Time.time - basetime < existtime)
+        while(Time.time - speedUpBaseTime < lastTime)
         {
             yield return null;
         }
         speed = basespeed;
+        isSpeedUp = false;
+    }
+
+    /// <summary>
+    /// 护盾
+    /// </summary>
+    /// <param name="time">持续时间</param>
+    void Sheild(float time)
+    {
+        sheildBaseTime = Time.time;
+        if (!isSheild)
+        {
+            StartCoroutine(StartSheild(time));
+        }
+    }
+
+    IEnumerator StartSheild(float lastTime)
+    {
+        isSheild = true;
+        GameObject s = Instantiate(sheildCirclePrefab, head.gameObject.transform);
+        while(Time.time - sheildBaseTime < lastTime && isSheild)
+        {
+            yield return null;
+        }
+        isSheild = false;
+        Destroy(s);
     }
 }
 

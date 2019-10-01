@@ -6,10 +6,9 @@ public class Mushroom : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "SnakeHead")
+        if (collision.tag == "SnakeHead")
         {
-            Body b = collision.gameObject.GetComponent<Body>();
-            b.snake.Increase(b.snake.length);
+            collision.gameObject.GetComponent<Body>().snake.Eat(FoodType.Mushroom);
             Destroy(gameObject);
         }
     }

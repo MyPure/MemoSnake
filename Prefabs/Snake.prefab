@@ -43,7 +43,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f78587564939b7419a7653c82778539, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  length: 0
   BodyPrefab: {fileID: 192853223582761115, guid: dd423a9333f155a4aaaf3ee786776bc2,
     type: 3}
   HeadPrefab: {fileID: 612579508742930336, guid: 5d93ce453da1f2c4b9905f42e3f3aebf,
+    type: 3}
+  sheildCirclePrefab: {fileID: 2679834569677781840, guid: ca8c7ec600e11e14fa0a096fad9f9bc1,
     type: 3}

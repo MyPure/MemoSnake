@@ -6,9 +6,9 @@ public class PoisonousGrass : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "SnakeHead")
+        if (collision.tag == "SnakeHead")
         {
-            collision.gameObject.GetComponent<Body>().snake.Decrease(2);
+            collision.gameObject.GetComponent<Body>().snake.Eat(FoodType.PoisonousGrass);
             Destroy(gameObject);
         }
     }

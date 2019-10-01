@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 192853223582761115}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.298, y: -0.944, z: 0}
-  m_LocalScale: {x: 0.366624, y: 0.366624, z: 0.366624}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1789051180016883357}
   m_Father: {fileID: 0}
@@ -96,6 +96,7 @@ MonoBehaviour:
   next: {fileID: 0}
   previous: {fileID: 0}
   pos: {fileID: 0}
+  snake: {fileID: 0}
 --- !u!1 &7325320219231331710
 GameObject:
   m_ObjectHideFlags: 0
@@ -120,7 +121,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7325320219231331710}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.438, z: 0}
+  m_LocalPosition: {x: 0, y: -0.12, z: 0}
   m_LocalScale: {x: 2.7275903, y: 2.7275903, z: 2.7275903}
   m_Children: []
   m_Father: {fileID: 8653103462463206007}
