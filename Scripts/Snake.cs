@@ -90,13 +90,21 @@ public class Snake : MonoBehaviour
     /// 伸长n节
     /// </summary>
     /// <param name="n">减少的节数</param>
-    public void Extend(int n)
+    public void Increase(int n)
     {
         p2 = tail;
 
         for(int i = 0; i < n; i++)
         {
-            p1 = Instantiate(BodyPrefab, p2.transform.position + (p2.pos.position - p2.transform.position).normalized * minDistance * (i + 1), Quaternion.identity).GetComponent<Body>();
+            p1 = Instantiate(BodyPrefab, p2.transform.position + (p2.pos.position - p2.transform.position).normalized * minDistance, Quaternion.identity).GetComponent<Body>();
+
+            float angle = Vector2.Angle(Vector2.up, p2.pos.position - p1.transform.position);
+            if (p2.pos.position.x > p1.transform.position.x)
+            {
+                angle *= -1;
+            }
+            p1.transform.eulerAngles = new Vector3(0, 0, angle);
+
             p1.snake = this;
             p1.previous = p2;
             p2.next = p1;

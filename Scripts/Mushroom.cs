@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Food : MonoBehaviour
+public class Mushroom : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "SnakeHead")
         {
-            collision.gameObject.GetComponent<Body>().snake.Increase(1);
+            Body b = collision.gameObject.GetComponent<Body>();
+            b.snake.Increase(b.snake.length);
             Destroy(gameObject);
         }
     }
