@@ -48,6 +48,7 @@ public class Snake : MonoBehaviour
     void Update()
     {
         Move();
+        transform.position = head.transform.position;
     }
 
     public void Move()
