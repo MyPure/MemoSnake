@@ -103,6 +103,7 @@ public class Snake : MonoBehaviour
             p2 = p1;
         }
         tail = p1;
+        p1 = p2 = null;
         length += n;
     }
 
@@ -116,12 +117,16 @@ public class Snake : MonoBehaviour
         {
             return;
         }
-
-        p2 = tail;
-        p1 = p2.previous;
-        tail = p1;
-        Destroy(p2);
-        p2 = p1;
+        for(int i = 0; i < n; i++)
+        {
+            p2 = tail;
+            p1 = p2.previous;
+            tail = p1;
+            Destroy(p2.gameObject);
+            p2 = p1;
+        }
+        p1 = p2 = null;
+        length -= n;
     }
 }
 
