@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum FoodType
+public enum PropType
 {
     Food,
     Mushroom,
@@ -105,14 +105,14 @@ public class Snake : MonoBehaviour
     /// <summary>
     /// 吃不同道具的反应
     /// </summary>
-    /// <param name="foodType">吃的道具的类型</param>
-    public void Eat(FoodType foodType)
+    /// <param name="PropType">吃的道具的类型</param>
+    public void Eat(PropType PropType)
     {
-        switch (foodType)
+        switch (PropType)
         {
-            case FoodType.Food:Increase(1);break;
-            case FoodType.Mushroom:Increase(length);break;
-            case FoodType.PoisonousGrass:
+            case PropType.Food:Increase(1);break;
+            case PropType.Mushroom:Increase(length);break;
+            case PropType.PoisonousGrass:
                 {
                     if (isSheild)
                     {
@@ -122,7 +122,7 @@ public class Snake : MonoBehaviour
                     Decrease(2);
                     break;
                 }
-            case FoodType.Boom:
+            case PropType.Boom:
                 {
                     if (isSheild)
                     {
@@ -132,8 +132,8 @@ public class Snake : MonoBehaviour
                     Decrease(length / 2);
                     break;
                 }
-            case FoodType.Energy:SpeedUp(5);break;
-            case FoodType.Sheild:Sheild(5);break;
+            case PropType.Energy:SpeedUp(5);break;
+            case PropType.Sheild:Sheild(5);break;
         }
     }
 
@@ -205,7 +205,7 @@ public class Snake : MonoBehaviour
     {
         isSpeedUp = true;
         float basespeed = speed;
-        speed *= 2f;
+        speed *= 1.2f;
         while(Time.time - speedUpBaseTime < lastTime)
         {
             yield return null;

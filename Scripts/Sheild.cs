@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Sheild : MonoBehaviour
+public class Sheild : Prop
 {
+    public AudioClip audioClip;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.tag == "SnakeHead")
         {
-            collision.gameObject.GetComponent<Body>().snake.Eat(FoodType.Sheild);
+            collision.gameObject.GetComponent<Body>().snake.Eat(PropType.Sheild);
+            PlaySound(audioClip);
             Destroy(gameObject);
         }
     }
