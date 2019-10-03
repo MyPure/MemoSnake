@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Button : MonoBehaviour
 {
+    public GameManager gameManager;
+    private void Start()
+    {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+    }
     public void DestroyNowCanvas()
     {
         GameObject nowObj = gameObject.transform.parent.gameObject;
@@ -17,5 +22,13 @@ public class Button : MonoBehaviour
         Instantiate(gameObject);
     }
 
+    public void BackToMainMenu()
+    {
+        gameManager.BackToMainMenu();
+    }
 
+    public void Restart()
+    {
+        gameManager.Restart();
+    }
 }

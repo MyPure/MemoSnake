@@ -25,6 +25,8 @@ public class Snake : MonoBehaviour
     public GameObject sheildCirclePrefab;//护盾光环
     public float sheildBaseTime;//护盾开始时间
     Body p1, p2, head, tail;
+    public GameObject mode1DeathUI;
+    public bool death = false;
 
     void Start()
     {
@@ -47,7 +49,10 @@ public class Snake : MonoBehaviour
 
     void Update()
     {
-        Move();
+        if (!death)
+        {
+            Move();
+        }
         transform.position = head.transform.position;
     }
 
@@ -174,6 +179,7 @@ public class Snake : MonoBehaviour
     {
         if(length - n <= 0)
         {
+            Die();
             return;
         }
         for(int i = 0; i < n; i++)
@@ -205,7 +211,7 @@ public class Snake : MonoBehaviour
     {
         isSpeedUp = true;
         float basespeed = speed;
-        speed *= 1.2f;
+        speed *= 1.5f;
         while(Time.time - speedUpBaseTime < lastTime)
         {
             yield return null;
@@ -237,6 +243,12 @@ public class Snake : MonoBehaviour
         }
         isSheild = false;
         Destroy(s);
+    }
+
+    public void Die()
+    {
+        Instantiate(mode1DeathUI);
+        death = true;
     }
 }
 

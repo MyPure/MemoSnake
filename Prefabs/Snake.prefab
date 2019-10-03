@@ -50,3 +50,7 @@ MonoBehaviour:
     type: 3}
   sheildCirclePrefab: {fileID: 2679834569677781840, guid: ca8c7ec600e11e14fa0a096fad9f9bc1,
     type: 3}
+  sheildBaseTime: 0
+  mode1DeathUI: {fileID: 6335887945497933350, guid: 0e8fad1f519fc684a99c2537f5c524c1,
+    type: 3}
+  death: 0

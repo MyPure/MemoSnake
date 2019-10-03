@@ -312,6 +312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f02b357c5afaabd43a13f8c1aa0d8b81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
 --- !u!1 &4060322906582367565
 GameObject:
   m_ObjectHideFlags: 0
@@ -446,6 +447,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f02b357c5afaabd43a13f8c1aa0d8b81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
 --- !u!1 &4060322906741726238
 GameObject:
   m_ObjectHideFlags: 0
@@ -458,7 +460,7 @@ GameObject:
   - component: {fileID: 4060322906741726226}
   - component: {fileID: 4060322906741726227}
   - component: {fileID: 4060322906741726236}
-  - component: {fileID: 4060322906741726225}
+  - component: {fileID: 5259107138634782670}
   m_Layer: 5
   m_Name: "\u5C0F\u86C7\u5192\u9669"
   m_TagString: Untagged
@@ -565,10 +567,21 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4060322906741726227}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5259107138634782670}
+        m_MethodName: LoadMode
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &4060322906741726225
+--- !u!114 &5259107138634782670
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -577,9 +590,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4060322906741726238}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f02b357c5afaabd43a13f8c1aa0d8b81, type: 3}
+  m_Script: {fileID: 11500000, guid: 5605dafc964229e47a1a9b77847adc56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
 --- !u!1 &4060322906800260769
 GameObject:
   m_ObjectHideFlags: 0
@@ -725,6 +739,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f02b357c5afaabd43a13f8c1aa0d8b81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
 --- !u!1 &4060322906938060415
 GameObject:
   m_ObjectHideFlags: 0
@@ -859,3 +874,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f02b357c5afaabd43a13f8c1aa0d8b81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
