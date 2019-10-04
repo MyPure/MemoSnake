@@ -75,8 +75,13 @@ public class MapGenerater : MonoBehaviour
                 int count = props[i].Count;
                 for (int j = 0; j < propMax[i] - count; j++)
                 {
-                    float x = Random.Range(borden.x, -borden.x);
-                    float y = Random.Range(-borden.y, borden.y);
+                    float x, y;
+                    do
+                    {
+                        x = Random.Range(borden.x, -borden.x);
+                        y = Random.Range(-borden.y, borden.y);
+                    }
+                    while (haveWall(new Vector2(x, y), 0.5f));
                     props[i].Add(Instantiate(propPrefabs[i], new Vector3(x, y, 0), Quaternion.identity));
                 }
             }
@@ -97,6 +102,7 @@ public class MapGenerater : MonoBehaviour
         for (int i = 0; i < 8; i++)
         {
             raycastHit2D = Physics2D.Raycast(pos, allDirection[i], range);
+            Debug.DrawLine(pos, pos + allDirection[i].normalized * range, Color.red);
             if (raycastHit2D.collider != null && raycastHit2D.collider.tag == "Wall")
             {
                 return true;
@@ -119,7 +125,7 @@ public class MapGenerater : MonoBehaviour
         for (int i = directionStart; i < directionStart+5; i++)
         {
             raycastHit2D = Physics2D.Raycast(pos, allDirection[i%8], range);
-            Debug.DrawLine(pos, pos + allDirection[i % 8].normalized * range, Color.red);
+            //Debug.DrawLine(pos, pos + allDirection[i % 8].normalized * range, Color.red);
             if (raycastHit2D.collider != null && raycastHit2D.collider.tag == "Wall")
             {
                 return true;
