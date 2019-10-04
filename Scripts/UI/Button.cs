@@ -5,9 +5,11 @@ using UnityEngine;
 public class Button : MonoBehaviour
 {
     public GameManager gameManager;
+    public AudioSource buttonSound;
     private void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        buttonSound = GameObject.Find("ButtonSound").GetComponent<AudioSource>();
     }
     public void DestroyNowCanvas()
     {
@@ -31,4 +33,10 @@ public class Button : MonoBehaviour
     {
         gameManager.Restart();
     }
+
+    public void PlaySound()
+    {
+        buttonSound.Play();
+    }
+    
 }

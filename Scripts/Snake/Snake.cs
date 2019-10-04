@@ -14,6 +14,8 @@ public enum PropType
 
 public class Snake : MonoBehaviour
 {
+    public GameManager gameManager; 
+
     public static float minDistance = 0.3f;
     public static float speed = 5;
     public int length = 0;
@@ -30,6 +32,9 @@ public class Snake : MonoBehaviour
 
     void Start()
     {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameManager.snake = this;
+
         p1 = p2 = head = Instantiate(HeadPrefab, transform.position, Quaternion.identity).GetComponent<Body>();
         length++;
         head.snake = this;
@@ -52,6 +57,8 @@ public class Snake : MonoBehaviour
         if (!death)
         {
             Move();
+            UpdateScore();
+
         }
         transform.position = head.transform.position;
     }
@@ -247,8 +254,17 @@ public class Snake : MonoBehaviour
 
     public void Die()
     {
+        
         Instantiate(mode1DeathUI);
         death = true;
+    }
+
+    void UpdateScore()
+    {
+        if(gameManager.currentMode == 1)
+        {
+            gameManager.score = length;
+        }
     }
 }
 

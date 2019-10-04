@@ -10,6 +10,8 @@ public class MapGenerater : MonoBehaviour
     int[] propMax;
     Vector3 borden;//边界
 
+    public float bornBorden = 4;
+
     int wallMax = 50;
     float wallGap = 3.0f;
     public List<GameObject> walls;
@@ -29,12 +31,64 @@ public class MapGenerater : MonoBehaviour
 
         //生成墙
         walls = new List<GameObject>();
+        GenerateWall();
+
+        //生成道具
+        GenerateProp(true);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        GenerateProp(false);
+    }
+
+    void GenerateProp(bool start)
+    {
+        //生成道具和食物
+        for (int i = 0; i < props.Length; i++)
+        {
+            if (props[i].Count < propMax[i])
+            {
+                Debug.Log(i + " " + props[i].Count);
+                int count = props[i].Count;
+                for (int j = 0; j < propMax[i] - count; j++)
+                {
+                    float x, y;
+                    bool s;
+                    do
+                    {
+                        x = Random.Range(borden.x, -borden.x);
+                        y = Random.Range(-borden.y, borden.y);
+                        if (start)
+                        {
+                            s = Mathf.Abs(x) <= bornBorden && Mathf.Abs(y) <= bornBorden;
+                        }
+                        else
+                        {
+                            s = false;
+                        }
+                    }
+                    while (haveWall(new Vector2(x, y), 0.5f) || s);
+                    props[i].Add(Instantiate(propPrefabs[i], new Vector3(x, y, 0), Quaternion.identity));
+                }
+            }
+        }
+    }
+
+    void GenerateWall()
+    {
         while (walls.Count < wallMax)
         {
-            float x = Random.Range(borden.x, -borden.x);
-            float y = Random.Range(-borden.y, borden.y);
-            int r2 = Random.Range(1, 7);//决定生成多墙的数量
-            int r3 = Random.Range(0, 4);//方向
+            float x, y;
+            do
+            {
+                x = Random.Range(borden.x, -borden.x);
+                y = Random.Range(-borden.y, borden.y);
+            }
+            while (Mathf.Abs(x) <= bornBorden && Mathf.Abs(y) <= bornBorden);
+            int r2 = Random.Range(1, 7);//决定生成墙的数量
+            int r3 = Random.Range(0, 4);//方向，0~3分别是上下左右
             for (int j = 0; j < r2; j++)
             {
                 if (j == 0)
@@ -50,7 +104,7 @@ public class MapGenerater : MonoBehaviour
                 }
                 else
                 {
-                    if (haveWall(new Vector2(x, y) + allDirection[r3 * 2] * j, wallGap, r3 * 2 - 2))
+                    if (haveWall(new Vector2(x, y) + allDirection[r3 * 2] * j, wallGap, r3 * 2 - 2) || ((new Vector2(x, y) + allDirection[r3 * 2] * j).magnitude <= bornBorden))
                     {
                         break;
                     }
@@ -61,33 +115,6 @@ public class MapGenerater : MonoBehaviour
                 }
             }
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //生成道具和食物
-        for (int i = 0; i < props.Length; i++)
-        {
-            if (props[i].Count < propMax[i])
-            {
-                Debug.Log(i + " " + props[i].Count);
-                int count = props[i].Count;
-                for (int j = 0; j < propMax[i] - count; j++)
-                {
-                    float x, y;
-                    do
-                    {
-                        x = Random.Range(borden.x, -borden.x);
-                        y = Random.Range(-borden.y, borden.y);
-                    }
-                    while (haveWall(new Vector2(x, y), 0.5f));
-                    props[i].Add(Instantiate(propPrefabs[i], new Vector3(x, y, 0), Quaternion.identity));
-                }
-            }
-        }
-
-        
     }
 
     /// <summary>

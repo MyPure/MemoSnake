@@ -6,7 +6,10 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static bool first = false;
-    // Start is called before the first frame update
+    public int score;
+    public Snake snake;
+    public int currentMode;
+
     void Start()
     {
         DontDestroyOnLoad(this);
@@ -20,11 +23,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 
     public void BackToMainMenu()
     {
@@ -36,6 +35,7 @@ public class GameManager : MonoBehaviour
     }
     public void LoadMode(int mode)
     {
+        currentMode = mode;
         SceneManager.LoadScene("Mode " + mode);
     }
 }
