@@ -5,16 +5,15 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
     public GameObject target;//要跟随的物体
-    public Vector2 preset;//初始偏移量
+    //public Vector2 preset;//初始偏移量
     public GameObject borden;
     void Start()
     {
-        preset = transform.position - target.transform.position;
-
+        //preset = transform.position - target.transform.position;
     }
-    void Update()
+    void LateUpdate()
     {
-        Vector2 d = (Vector2)target.transform.position + preset;
+        Vector2 d = (Vector2)target.transform.position;
 
         //x方向上的跟随
         if (target.transform.position.x <= borden.transform.position.x) d.x = borden.transform.position.x;

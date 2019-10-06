@@ -14,9 +14,9 @@ public enum PropType
 
 public class Snake : MonoBehaviour
 {
-    public GameManager gameManager; 
-
-    public static float minDistance = 0.3f;
+    public GameManager gameManager;
+    public static float minDistance = 0.25f;
+    public static float baseSpeed = 5;
     public static float speed = 5;
     public int length = 0;
     public GameObject BodyPrefab;
@@ -27,13 +27,15 @@ public class Snake : MonoBehaviour
     public GameObject sheildCirclePrefab;//护盾光环
     public float sheildBaseTime;//护盾开始时间
     Body p1, p2, head, tail;
-    public GameObject mode1DeathUI;
+    public GameObject deathUI;
+    public GameObject passUI;
     public bool death = false;
 
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         gameManager.snake = this;
+
 
         p1 = p2 = head = Instantiate(HeadPrefab, transform.position, Quaternion.identity).GetComponent<Body>();
         length++;
@@ -50,6 +52,7 @@ public class Snake : MonoBehaviour
         }
 
         tail = p1;
+
     }
 
     void Update()
@@ -67,8 +70,10 @@ public class Snake : MonoBehaviour
     {
         //头的旋转
         Vector3 mousePosition = Input.mousePosition;
+        
         mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
         mousePosition.z = 0;
+
         float angle;
         if ((head.transform.position - mousePosition).magnitude > minDistance * 4)
         {
@@ -98,14 +103,19 @@ public class Snake : MonoBehaviour
         {
             if (b == head)
             {
-                head.transform.Translate(Vector3.up * Time.deltaTime * speed);
+                //head.transform.Translate(Vector3.up * Time.deltaTime * speed);
+                //Vector3 a = Vector3.MoveTowards(head.transform.position, mousePosition, speed * Time.fixedDeltaTime);
+                Vector3 a = head.transform.TransformPoint(Vector3.up * Time.deltaTime * speed);
+                head.rigidbody2D.MovePosition(a);
+                //Debug.Log(Vector3.up * Time.fixedDeltaTime * speed);
             }
             else
             {
                 if ((b.transform.position - b.previous.pos.position).magnitude > minDistance)
                 {
                     Vector3 d = Vector3.MoveTowards(b.transform.position, b.previous.pos.position, speed * Time.deltaTime);
-                    b.transform.position = d;
+                    b.rigidbody2D.MovePosition(d);
+                    //b.transform.position = d;
                 }
                 Debug.DrawLine(b.transform.position, b.previous.pos.position, Color.red);
 
@@ -217,13 +227,12 @@ public class Snake : MonoBehaviour
     IEnumerator StartSpeedUp(float lastTime)
     {
         isSpeedUp = true;
-        float basespeed = speed;
-        speed *= 1.5f;
+        speed = baseSpeed * 1.3f;
         while(Time.time - speedUpBaseTime < lastTime)
         {
             yield return null;
         }
-        speed = basespeed;
+        speed = baseSpeed;
         isSpeedUp = false;
     }
 
@@ -255,7 +264,12 @@ public class Snake : MonoBehaviour
     public void Die()
     {
         
-        Instantiate(mode1DeathUI);
+        Instantiate(deathUI);
+        death = true;
+    }
+    public void Pass()
+    {
+        Instantiate(passUI);
         death = true;
     }
 

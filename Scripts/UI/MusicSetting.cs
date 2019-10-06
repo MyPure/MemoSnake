@@ -11,21 +11,33 @@ public class MusicSetting : MonoBehaviour
     }
     public MusicType musicType;
     public AudioSource[] audioSouce;
+    public GameManager gameManager;
     Slider slider;
     Toggle toggle;
     private void Start()
     {
         audioSouce = GameObject.FindWithTag(musicType.ToString()).GetComponentsInChildren<AudioSource>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         slider = GetComponentInChildren<Slider>();
         toggle = GetComponentInChildren<Toggle>();
+
+        slider.value = gameManager.soundVolume[musicType];
+        toggle.isOn = !gameManager.soundMute[musicType];
     }
-    private void Update()
+    public void SetVolume()
     {
-        foreach(AudioSource a in audioSouce)
+        gameManager.soundVolume[musicType] = slider.value;
+        foreach (AudioSource a in audioSouce)
         {
-            a.volume = slider.value;
-            a.mute = !toggle.isOn;
+            a.volume = gameManager.soundVolume[musicType];
         }
-        
+    }
+    public void SetToggle()
+    {
+        gameManager.soundMute[musicType] = !toggle.isOn;
+        foreach (AudioSource a in audioSouce)
+        {
+            a.mute = gameManager.soundMute[musicType];
+        }
     }
 }

@@ -9,4 +9,8 @@ public class ChooseButton : Button
     {
         gameManager.LoadMode(mode);
     }
+    public void LoadLevel(int level)
+    {
+        gameManager.LoadLevel(level);
+    }
 }

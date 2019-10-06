@@ -38,5 +38,8 @@ public class Button : MonoBehaviour
     {
         buttonSound.Play();
     }
-    
+    public void NextLevel()
+    {
+        gameManager.NextLevel();
+    }
 }

@@ -514,7 +514,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1709744020}
-  preset: {x: 0, y: 0}
   borden: {fileID: 692192543}
 --- !u!20 &519420031
 Camera:

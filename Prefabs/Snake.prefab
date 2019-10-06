@@ -43,6 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f78587564939b7419a7653c82778539, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
   length: 0
   BodyPrefab: {fileID: 192853223582761115, guid: dd423a9333f155a4aaaf3ee786776bc2,
     type: 3}
@@ -51,6 +52,6 @@ MonoBehaviour:
   sheildCirclePrefab: {fileID: 2679834569677781840, guid: ca8c7ec600e11e14fa0a096fad9f9bc1,
     type: 3}
   sheildBaseTime: 0
-  mode1DeathUI: {fileID: 6335887945497933350, guid: 0e8fad1f519fc684a99c2537f5c524c1,
-    type: 3}
+  deathUI: {fileID: 6335887945497933350, guid: 0e8fad1f519fc684a99c2537f5c524c1, type: 3}
+  passUI: {fileID: 1171127216929643290, guid: ff530af1d2ac25b4d80f754d44f0c914, type: 3}
   death: 0
