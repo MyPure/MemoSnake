@@ -5,12 +5,16 @@ using UnityEngine;
 public class Food : Prop
 {
     public AudioClip audioClip;
+    void start()
+    {
+        propType = PropType.Food;
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "SnakeHead")
         {
-            collision.gameObject.GetComponent<Body>().snake.Eat(PropType.Food);
+            collision.gameObject.GetComponent<Body>().snake.Eat(this);
             PlaySound(audioClip);
             Destroy(gameObject);
         }

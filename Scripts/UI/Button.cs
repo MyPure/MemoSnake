@@ -8,7 +8,7 @@ public class Button : MonoBehaviour
     public AudioSource buttonSound;
     private void Start()
     {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameManager = GameManager.gameManager;
         buttonSound = GameObject.Find("ButtonSound").GetComponent<AudioSource>();
     }
     public void DestroyNowCanvas()

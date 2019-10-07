@@ -2,22 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum PropType
-{
-    Food,
-    Mushroom,
-    Boom,
-    Energy,
-    PoisonousGrass,
-    Sheild
-}
+
 
 public class Snake : MonoBehaviour
 {
     public GameManager gameManager;
-    public static float minDistance = 0.25f;
-    public static float baseSpeed = 5;
-    public static float speed = 5;
+    public float baseSpeed = 5;
+    public float speed = 5;
+    public static float minDistance = 0.35f;
     public int length = 0;
     public GameObject BodyPrefab;
     public GameObject HeadPrefab;
@@ -33,17 +25,20 @@ public class Snake : MonoBehaviour
 
     void Start()
     {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameManager = GameManager.gameManager;
         gameManager.snake = this;
 
 
         p1 = p2 = head = Instantiate(HeadPrefab, transform.position, Quaternion.identity).GetComponent<Body>();
         length++;
         head.snake = this;
-
+        if(gameManager.currentMode == 3)
+        {
+            head.transform.eulerAngles = new Vector3(0, 0, -90);
+        }
         for (int i = 0; i < 2; i++)
         {
-            p1 = Instantiate(BodyPrefab, transform.position - Vector3.up * minDistance * (i + 1), Quaternion.identity).GetComponent<Body>();
+            p1 = Instantiate(BodyPrefab, transform.position, Quaternion.identity).GetComponent<Body>();
             p1.snake = this;
             p1.previous = p2;
             p2.next = p1;
@@ -55,72 +50,135 @@ public class Snake : MonoBehaviour
 
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (!death)
         {
-            Move();
+            Move(gameManager.currentMode);
             UpdateScore();
 
         }
         transform.position = head.transform.position;
     }
 
-    public void Move()
+    public void Move(int mode)
     {
-        //头的旋转
-        Vector3 mousePosition = Input.mousePosition;
-        
-        mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
-        mousePosition.z = 0;
+        if (mode == 1 || mode == 2)
+        {
+            //头的旋转
+            Vector3 mousePosition = Input.mousePosition;
 
-        float angle;
-        if ((head.transform.position - mousePosition).magnitude > minDistance * 4)
-        {
-            angle = Vector2.Angle(Vector2.up, mousePosition - head.transform.position);
-            if (mousePosition.x > head.transform.position.x)
-            {
-                angle *= -1;
-            }
-            head.transform.eulerAngles = new Vector3(0, 0, angle);
-        }
-        //身体的旋转
-        Body b = head.next;
-        while (b != null)
-        {
-            angle = Vector2.Angle(Vector2.up, b.previous.pos.position - b.transform.position);
-            if (b.previous.transform.position.x > b.transform.position.x)
-            {
-                angle *= -1;
-            }
-            b.transform.eulerAngles = new Vector3(0, 0, angle);
-            b = b.next;
-        }
+            mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+            mousePosition.z = 0;
 
-        //整体的移动
-        b = head;
-        while (b != null)
-        {
-            if (b == head)
+            float angle;
+            if ((head.transform.position - mousePosition).magnitude > minDistance * 3)
             {
-                //head.transform.Translate(Vector3.up * Time.deltaTime * speed);
-                //Vector3 a = Vector3.MoveTowards(head.transform.position, mousePosition, speed * Time.fixedDeltaTime);
-                Vector3 a = head.transform.TransformPoint(Vector3.up * Time.deltaTime * speed);
-                head.rigidbody2D.MovePosition(a);
-                //Debug.Log(Vector3.up * Time.fixedDeltaTime * speed);
-            }
-            else
-            {
-                if ((b.transform.position - b.previous.pos.position).magnitude > minDistance)
+                angle = Vector2.Angle(Vector2.up, mousePosition - head.transform.position);
+                if (mousePosition.x > head.transform.position.x)
                 {
-                    Vector3 d = Vector3.MoveTowards(b.transform.position, b.previous.pos.position, speed * Time.deltaTime);
-                    b.rigidbody2D.MovePosition(d);
-                    //b.transform.position = d;
+                    angle *= -1;
                 }
-                Debug.DrawLine(b.transform.position, b.previous.pos.position, Color.red);
-
+                head.transform.eulerAngles = new Vector3(0, 0, angle);
             }
-            b = b.next;
+            //身体的旋转
+            Body b = head.next;
+            while (b != null)
+            {
+                angle = Vector2.Angle(Vector2.up, b.previous.pos.position - b.transform.position);
+                if (b.previous.pos.position.x > b.transform.position.x)
+                {
+                    angle *= -1;
+                }
+                b.transform.eulerAngles = new Vector3(0, 0, angle);
+                b = b.next;
+            }
+
+            //整体的移动
+            b = head;
+            while (b != null)
+            {
+                if (b == head)
+                {
+                    Vector3 a = head.transform.TransformPoint(Vector3.up * Time.fixedDeltaTime * speed);
+                    head.rigidbody2D.MovePosition(a);
+                }
+                else
+                {
+                    if((b.transform.position - b.previous.pos.position).magnitude > minDistance)
+                    {
+                        Vector3 d = Vector3.MoveTowards(b.transform.position, b.previous.pos.position, speed * Time.fixedDeltaTime);
+                        b.transform.position = d;
+                    }
+
+
+                }
+                b = b.next;
+            }
+            
+        }
+        else if (mode == 3)
+        {
+            Vector3 mousePosition = Input.mousePosition;
+
+            mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+            mousePosition.z = 0;
+
+            float angle;
+
+            //头的旋转
+
+            if (mousePosition.x - head.transform.position.x > 3f)
+            {
+                angle = Vector2.Angle(Vector2.up, mousePosition - head.transform.position);
+                if (mousePosition.x > head.transform.position.x)
+                {
+                    angle *= -1;
+                }
+                head.transform.eulerAngles = new Vector3(0, 0, angle);
+            }
+
+            //身体的旋转
+            Body b = head.next;
+            while (b != null)
+            {
+                angle = Vector2.Angle(Vector2.up, b.previous.pos.position - b.transform.position);
+                if (b.previous.pos.position.x > b.transform.position.x)
+                {
+                    angle *= -1;
+                }
+                b.transform.eulerAngles = new Vector3(0, 0, angle);
+                b = b.next;
+            }
+
+            //整体的移动
+            b = head;
+            while (b != null)
+            {
+                if (b == head)
+                {
+                    float xMove,yMove;
+                    xMove = speed * Time.fixedDeltaTime;
+                    yMove = (mousePosition.y - head.transform.position.y) * 0.5f;
+                    head.transform.Translate(new Vector3(xMove, yMove),Space.World);
+                    if (head.transform.position.y >= 4.5f)
+                    {
+                        head.transform.position = new Vector3(head.transform.position.x, 4.3f);
+                    }
+                    else if(head.transform.position.y <= -4.5f)
+                    {
+                        head.transform.position = new Vector3(head.transform.position.x, -4.3f);
+                    }
+                }
+                else
+                {
+                    float xMove, yMove;
+                    xMove = (b.previous.transform.position.x - minDistance - b.transform.position.x);
+                    yMove = (b.previous.transform.position.y - b.transform.position.y) * 0.8f;
+                    b.transform.Translate(new Vector3(xMove, yMove),Space.World);
+                }
+                b = b.next;
+            }
         }
     }
 
@@ -128,9 +186,9 @@ public class Snake : MonoBehaviour
     /// 吃不同道具的反应
     /// </summary>
     /// <param name="PropType">吃的道具的类型</param>
-    public void Eat(PropType PropType)
+    public void Eat(Prop prop)
     {
-        switch (PropType)
+        switch (prop.propType)
         {
             case PropType.Food:Increase(1);break;
             case PropType.Mushroom:Increase(length);break;
@@ -156,6 +214,8 @@ public class Snake : MonoBehaviour
                 }
             case PropType.Energy:SpeedUp(5);break;
             case PropType.Sheild:Sheild(5);break;
+            case PropType.Mode3Food:Increase(((Mode3Food)prop).num);break;
+            case PropType.Square:Decrease(((Square)prop).num); break;
         }
     }
 
@@ -169,7 +229,7 @@ public class Snake : MonoBehaviour
 
         for(int i = 0; i < n; i++)
         {
-            p1 = Instantiate(BodyPrefab, p2.transform.position + (p2.pos.position - p2.transform.position).normalized * minDistance, Quaternion.identity).GetComponent<Body>();
+            p1 = Instantiate(BodyPrefab, p2.pos.position, Quaternion.identity).GetComponent<Body>();
 
             float angle = Vector2.Angle(Vector2.up, p2.pos.position - p1.transform.position);
             if (p2.pos.position.x > p1.transform.position.x)
@@ -276,6 +336,18 @@ public class Snake : MonoBehaviour
     void UpdateScore()
     {
         if(gameManager.currentMode == 1)
+        {
+            gameManager.score = length;
+        }
+        else if(gameManager.currentMode == 2)
+        {
+            gameManager.score = length;
+        }
+        else if(gameManager.currentMode == 3)
+        {
+            gameManager.score = length;
+        }
+        else if(gameManager.currentMode == 4)
         {
             gameManager.score = length;
         }

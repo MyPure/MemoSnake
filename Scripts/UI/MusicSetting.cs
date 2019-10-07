@@ -17,7 +17,7 @@ public class MusicSetting : MonoBehaviour
     private void Start()
     {
         audioSouce = GameObject.FindWithTag(musicType.ToString()).GetComponentsInChildren<AudioSource>();
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameManager = GameManager.gameManager;
         slider = GetComponentInChildren<Slider>();
         toggle = GetComponentInChildren<Toggle>();
 

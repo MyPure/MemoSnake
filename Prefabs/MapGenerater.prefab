@@ -12,7 +12,7 @@ GameObject:
   m_Layer: 0
   m_Name: Borden
   m_TagString: Untagged
-  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 770581964764453587}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -17.749, y: 17.729, z: 0}
+  m_LocalPosition: {x: 0, y: 3.76, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 770581965248697261}
@@ -81,5 +81,22 @@ MonoBehaviour:
   - {fileID: 5837230581057065528, guid: 3d2c0b578a7f9e647bf2fde2332d8286, type: 3}
   - {fileID: 5454649612450399615, guid: 2314a10b7f230a540810ae6128d15051, type: 3}
   - {fileID: 4112352759107778858, guid: 15a0a46dc33425c4c8e239fd3e60473c, type: 3}
+  bornBorden: 4
+  walls: []
   wallPrefab: {fileID: 694537670491784058, guid: b7c3b9b467b552b489b130b516548a4e,
     type: 3}
+  snake: {fileID: 0}
+  mode3FoodPrefab: {fileID: 4130422403358042008, guid: 8bdfc7f7a41078a41812af2ac8b643c9,
+    type: 3}
+  squarePrefab: {fileID: 7958271583380573387, guid: 0f2eb117f9f8d3845865772600af4c97,
+    type: 3}
+  squareSprites:
+  - {fileID: 21300000, guid: a74ca5dd2c326384e897555e62792c2a, type: 3}
+  - {fileID: 21300000, guid: e7712418580d8f842952ca8d9524fe12, type: 3}
+  - {fileID: 21300000, guid: b95c5a8cf04ba97479150800fe8baf6b, type: 3}
+  - {fileID: 21300000, guid: ad468682c485cd14ea1f2c18a0bfc064, type: 3}
+  M3FoodCount: 9
+  SquareCount: 5
+  mode3Foods: []
+  squares: []
+  gameManager: {fileID: 0}

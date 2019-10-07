@@ -14,12 +14,14 @@ public class GameManager : MonoBehaviour
     public Dictionary<MusicSetting.MusicType, float> soundVolume = new Dictionary<MusicSetting.MusicType, float>() { { MusicSetting.MusicType.SoundMusic,1.0f },{ MusicSetting.MusicType.SoundEffect,1.0f } };
     public Dictionary<MusicSetting.MusicType, bool> soundMute = new Dictionary<MusicSetting.MusicType, bool>() { { MusicSetting.MusicType.SoundMusic, false }, { MusicSetting.MusicType.SoundEffect, false } };
 
-    void Start()
+    public static GameManager gameManager;
+    void Awake()
     {
         DontDestroyOnLoad(this);
         if (!first)
         {
             first = true;
+            gameManager = this;
         }
         else
         {

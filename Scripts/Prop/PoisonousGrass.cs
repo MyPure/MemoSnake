@@ -5,11 +5,15 @@ using UnityEngine;
 public class PoisonousGrass : Prop
 {
     public AudioClip audioClip;
+    void start()
+    {
+        propType = PropType.PoisonousGrass;
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "SnakeHead")
         {
-            collision.gameObject.GetComponent<Body>().snake.Eat(PropType.PoisonousGrass);
+            collision.gameObject.GetComponent<Body>().snake.Eat(this);
             PlaySound(audioClip);
             Destroy(gameObject);
         }

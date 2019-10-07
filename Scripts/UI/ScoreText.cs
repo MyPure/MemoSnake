@@ -8,7 +8,7 @@ public class ScoreText : MonoBehaviour
     Text text;
     void Start()
     {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameManager = GameManager.gameManager;
         text = GetComponent<Text>();
         text.text = gameManager.score.ToString();
     }

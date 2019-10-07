@@ -110,4 +110,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 0}
+  propType: 4
   audioClip: {fileID: 8300000, guid: bedd7e8c94cdd144ba74fa572def50fd, type: 3}
