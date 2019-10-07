@@ -5,9 +5,10 @@ using UnityEngine;
 public class Boom : Prop
 {
     public AudioClip audioClip;
-    private void Start()
+    void Start()
     {
         propType = PropType.Boom;
+        audioSource = GameObject.Find("PropSound").GetComponent<AudioSource>();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

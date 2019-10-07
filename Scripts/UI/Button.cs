@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Button : MonoBehaviour
 {
@@ -42,4 +43,17 @@ public class Button : MonoBehaviour
     {
         gameManager.NextLevel();
     }
+    public void Pause()
+    {
+        gameManager.Pause();
+    }
+    public void UnPause()
+    {
+        gameManager.UnPause();
+    }
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
+    
 }

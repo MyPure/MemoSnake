@@ -52,13 +52,16 @@ public class Snake : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!death)
+        if (!gameManager.pause)
         {
-            Move(gameManager.currentMode);
-            UpdateScore();
+            if (!death)
+            {
+                Move(gameManager.currentMode);
+                UpdateScore();
 
+            }
+            transform.position = head.transform.position;
         }
-        transform.position = head.transform.position;
     }
 
     public void Move(int mode)
@@ -209,7 +212,7 @@ public class Snake : MonoBehaviour
                         isSheild = false;
                         break;
                     }
-                    Decrease(length / 2);
+                    Decrease(length / 2 + 1);
                     break;
                 }
             case PropType.Energy:SpeedUp(5);break;

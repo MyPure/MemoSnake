@@ -5,9 +5,10 @@ using UnityEngine;
 public class Mushroom : Prop
 {
     public AudioClip audioClip;
-    void start()
+    void Start()
     {
         propType = PropType.Mushroom;
+        audioSource = GameObject.Find("PropSound").GetComponent<AudioSource>();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

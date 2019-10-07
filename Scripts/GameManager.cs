@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public Snake snake;
     public int currentMode;
     public int currentLevel;
+    public bool pause = false;
 
     public Dictionary<MusicSetting.MusicType, float> soundVolume = new Dictionary<MusicSetting.MusicType, float>() { { MusicSetting.MusicType.SoundMusic,1.0f },{ MusicSetting.MusicType.SoundEffect,1.0f } };
     public Dictionary<MusicSetting.MusicType, bool> soundMute = new Dictionary<MusicSetting.MusicType, bool>() { { MusicSetting.MusicType.SoundMusic, false }, { MusicSetting.MusicType.SoundEffect, false } };
@@ -60,5 +61,13 @@ public class GameManager : MonoBehaviour
         {
             LoadLevel(currentLevel + 1);
         }
+    }
+    public void Pause()
+    {
+        pause = true;
+    }
+    public void UnPause()
+    {
+        pause = false;
     }
 }

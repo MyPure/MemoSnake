@@ -17,7 +17,7 @@ public class Prop : MonoBehaviour
 {
     public AudioSource audioSource;
     public PropType propType;
-    private void Start()
+    void Start()
     {
         audioSource = GameObject.Find("PropSound").GetComponent<AudioSource>();
     }

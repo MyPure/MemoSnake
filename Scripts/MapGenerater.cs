@@ -124,7 +124,6 @@ public class MapGenerater : MonoBehaviour
         {
             if (props[i].Count < propMax[i])
             {
-                Debug.Log(i + " " + props[i].Count);
                 int count = props[i].Count;
                 for (int j = 0; j < propMax[i] - count; j++)
                 {
